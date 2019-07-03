@@ -27,6 +27,24 @@ class ViewController: UIViewController {
         currentValue = Int(roundedValue)
         //startNewRound()
         startNewGame()
+        
+        //ONE WAY TO DO THIS
+        //let thumbImageNorm = UIImage(named: "SliderThumb-Normal")!
+        let thumbImageNorm = #imageLiteral(resourceName: "SliderThumb-Normal")
+        slider.setThumbImage(thumbImageNorm, for: .normal)
+        
+        let thumbImageHighlighted = #imageLiteral(resourceName: "SliderThumb-Highlighted")
+        slider.setThumbImage(thumbImageHighlighted, for: .highlighted)
+        
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        
+        let trackLeftImage = #imageLiteral(resourceName: "SliderTrackLeft")
+        let trackLeftResizable = trackLeftImage.resizableImage(withCapInsets: insets)
+        slider.setMinimumTrackImage(trackLeftResizable, for: .normal)
+        
+        let trackRightImage = #imageLiteral(resourceName: "SliderTrackRight")
+        let trackRightResizable = trackRightImage.resizableImage(withCapInsets: insets)
+        slider.setMaximumTrackImage(trackRightResizable, for: .normal)
     }
     
     @IBAction func showAlert() {
@@ -34,7 +52,6 @@ class ViewController: UIViewController {
         let difference = abs(currentValue - targetValue)
         var points = 100 - difference
         
-        score += points
         
         let title: String
         if difference == 0 {
@@ -51,6 +68,8 @@ class ViewController: UIViewController {
             title = "Not even close..."
         }
         
+        score += points
+
         let message = "You scored \(points)"
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
